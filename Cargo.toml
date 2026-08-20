@@ -1,0 +1,22 @@
+[workspace]
+members = ["crates/*"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+# local
+discord-ipc = { version = "0.1.0", path = "crates/discord-ipc" }
+
+# external
+bytes = { version = "1.12.1", default-features = false }
+serde = { version = "1.0.229", default-features = false, features = ["derive", "std"] }
+serde_json = { version = "1.0.151", default-features = false, features = ["std"] }
+serde_repr = { version = "0.1.21", default-features = false }
+serde_with = { version = "3.22.0", default-features = false, features = ["macros", "std"] }
+tokio = { version = "1.53.1", default-features = false, features = ["io-util", "net"] }
+uuid = { version = "1.24.1", default-features = false, features = ["serde", "v4"] }
+xdg = { version = "3.0.0", default-features = false }
+zerocopy = { version = "0.8.56", default-features = false, features = ["derive"] }

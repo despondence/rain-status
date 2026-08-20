@@ -1,0 +1,7 @@
+[package]
+name = "zbus-mpris"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+zbus.workspace = true

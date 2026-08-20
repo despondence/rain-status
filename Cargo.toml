@@ -20,3 +20,4 @@ tokio = { version = "1.53.1", default-features = false, features = ["io-util", "
 uuid = { version = "1.24.1", default-features = false, features = ["serde", "v4"] }
 xdg = { version = "3.0.0", default-features = false }
 zerocopy = { version = "0.8.56", default-features = false, features = ["derive"] }
+zbus = { version = "5.19.0", default-features = false, features = ["tokio"] }

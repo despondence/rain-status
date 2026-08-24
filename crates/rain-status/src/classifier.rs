@@ -117,7 +117,7 @@ impl MediaKind {
             return Self::Music;
         }
 
-        Self::Video
+        Self::Music
     }
 }
 

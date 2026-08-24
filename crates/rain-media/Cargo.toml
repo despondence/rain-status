@@ -1,0 +1,13 @@
+[package]
+name = "rain-media"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+axum = "0.8.9"
+futures = "0.3.34"
+serde.workspace = true
+tokio.workspace = true
+url = "2.5.8"
+zbus.workspace = true
+zbus-mpris.workspace = true

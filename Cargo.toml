@@ -9,6 +9,8 @@ edition = "2024"
 [workspace.dependencies]
 # local
 discord-ipc = { version = "0.1.0", path = "crates/discord-ipc" }
+rain-media = { version = "0.1.0", path = "crates/rain-media" }
+zbus-mpris = { version = "0.1.0", path = "crates/zbus-mpris" }
 
 # external
 bytes = { version = "1.12.1", default-features = false }

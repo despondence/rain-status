@@ -37,6 +37,8 @@ impl IpcStream {
         let string = serde_json::to_string(&message)
             .map_err(|error| io::Error::new(io::ErrorKind::InvalidInput, error))?;
 
+        println!("[discord-ipc] send {string}");
+
         let len = u32::try_from(string.len())
             .map_err(|error| io::Error::new(io::ErrorKind::InvalidInput, error))?;
 
@@ -59,8 +61,19 @@ impl IpcStream {
 
         self.stream.read_exact(&mut bytes).await?;
 
-        serde_json::from_slice(&bytes)
-            .map_err(|error| io::Error::new(io::ErrorKind::InvalidInput, error))
+        if header.opcode == 2 {
+            let error = String::from_utf8_lossy(&bytes);
+
+            return Err(io::Error::new(
+                io::ErrorKind::ConnectionAborted,
+                format!("{error}"),
+            ));
+        }
+
+        let payload = serde_json::from_slice(&bytes)
+            .map_err(|error| io::Error::new(io::ErrorKind::InvalidInput, error))?;
+
+        Ok((header.opcode.get(), payload))
     }
 
     pub async fn roundtrip<D: DeserializeOwned>(
@@ -96,5 +109,9 @@ impl IpcStream {
         let (_opcode, message) = self.roundtrip(1, message).await?;
 
         Ok(message)
+    }
+
+    pub async fn clear_activity(&mut self, process_id: u32) -> io::Result<serde_json::Value> {
+        self.set_activity(process_id, None).await
     }
 }

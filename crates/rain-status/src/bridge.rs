@@ -113,6 +113,18 @@ impl PresenceSlot {
             }
         });
 
+        fn format_field(string: &str) -> String {
+            string
+                .to_lowercase()
+                .split(|character: char| !character.is_alphanumeric())
+                .filter(|split| !split.is_empty())
+                .collect::<Vec<_>>()
+                .join(" ")
+        }
+
+        let details = format_field(&details);
+        let state_text = format_field(&state_text);
+
         let activity = Activity {
             application_id: Some(self.kind.discord_app_id()),
             platform: Some("desktop".to_string()),
@@ -126,7 +138,7 @@ impl PresenceSlot {
             timestamps,
             assets: Some(ActivityAssets {
                 large_image: Some(image_url.clone()),
-                large_text: Some(details.clone()),
+                large_text: None,
                 small_image: None,
                 small_text: None,
             }),
